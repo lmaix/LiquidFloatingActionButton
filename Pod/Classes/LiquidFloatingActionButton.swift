@@ -189,8 +189,8 @@ public class LiquidFloatingActionButton : UIView {
         self.longTapTimer = NSTimer.scheduledTimerWithTimeInterval(self.longTapTime, target: self, selector: "didLongTapped", userInfo: nil, repeats: false)
         setNeedsDisplay()
     }
-    
-    public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent?) {
+ 
+    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {     
         if(self.touching == true){
             setNeedsDisplay()
             didTapped()
