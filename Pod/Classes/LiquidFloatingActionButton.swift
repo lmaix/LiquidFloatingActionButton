@@ -19,7 +19,6 @@ import QuartzCore
     // selected method
     @objc optional func liquidFloatingActionButton(_ liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int)
     @objc optional func didTapped(liquidFloatingActionButton: LiquidFloatingActionButton)
-    @objc optional func didLongTapped(liquidFloatingActionButton: LiquidFloatingActionButton)
 }
 
 public enum LiquidFloatingActionButtonAnimateStyle : Int {
@@ -55,9 +54,6 @@ open class LiquidFloatingActionButton : UIView {
           }
     }
 
-    private var longTapTimer : Timer?
-    public var longTapTime = 2.0
-  
     open fileprivate(set) var isClosed: Bool = true
     
     @IBInspectable open var color: UIColor = UIColor(red: 82 / 255.0, green: 112 / 255.0, blue: 235 / 255.0, alpha: 1.0) {
@@ -186,7 +182,6 @@ open class LiquidFloatingActionButton : UIView {
     // MARK: Events
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.touching = true
-        self.longTapTimer = Timer.scheduledTimer(timeInterval: self.longTapTime, target: self, selector: "didLongTapped", userInfo: nil, repeats: false)
         setNeedsDisplay()
     }
  
@@ -238,19 +233,11 @@ open class LiquidFloatingActionButton : UIView {
     }
 
     fileprivate func didTapped() {
-        longTapTimer?.invalidate()
         delegate!.didTapped!(liquidFloatingActionButton: self)
         if isClosed {
             open()
         } else {
             close()
-        }
-    }
-    
-    fileprivate func didLongTapped(){
-        self.touching = false
-        if isClosed{
-            delegate!.didLongTapped!(liquidFloatingActionButton: self)
         }
     }
     
