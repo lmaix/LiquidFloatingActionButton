@@ -34,7 +34,7 @@ import QuartzCore
 open class LiquidFloatingActionButton : UIView {
 
     fileprivate let internalRadiusRatio: CGFloat = 20.0 / 56.0
-    open var cellRadiusRatio: CGFloat      = 0.38
+    open var cellRadiusRatio: CGFloat = 0.50
     open var animateStyle: LiquidFloatingActionButtonAnimateStyle = .up {
         didSet {
             baseView.animateStyle = animateStyle
@@ -131,7 +131,7 @@ open class LiquidFloatingActionButton : UIView {
 		
         // rotate plus icon
         CATransaction.setAnimationDuration(0.8)
-        self.plusLayer.transform = CATransform3DMakeRotation((CGFloat(M_PI) * rotationDegrees) / 180, 0, 0, 1)
+        self.plusLayer.transform = CATransform3DMakeRotation((CGFloat(Double.pi) * rotationDegrees) / 180, 0, 0, 1)
 
         let cells = cellArray()
         for cell in cells {
@@ -393,12 +393,12 @@ class CircleLiquidBaseView : ActionBarBaseView {
         }
 
         if let firstCell = openingCells.first {
-            bigEngine?.push(circle: baseLiquid!, other: firstCell)
+            _ = bigEngine?.push(circle: baseLiquid!, other: firstCell)
         }
         for i in 1..<openingCells.count {
             let prev = openingCells[i - 1]
             let cell = openingCells[i]
-            engine?.push(circle: prev, other: cell)
+            _ = engine?.push(circle: prev, other: cell)
         }
         engine?.draw(parent: baseLiquid!)
         bigEngine?.draw(parent: baseLiquid!)
@@ -521,7 +521,7 @@ open class LiquidFloatingCell : LiquittableCircle {
     
     func setup(_ image: UIImage, tintColor: UIColor = UIColor.white) {
         imageView.image = image.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        imageView.tintColor = tintColor
+        imageView.tintColor = UIColor.darkGray
         setupView(imageView)
     }
     
